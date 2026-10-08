@@ -288,10 +288,10 @@ export const BackupRestoreSection: React.FC<BackupRestoreSectionProps> = ({
             type="button"
             onClick={handleExportBackup}
             disabled={isExporting}
-            className="relative group p-4 rounded-2xl bg-gradient-to-b from-blue-600/25 to-blue-900/30 hover:from-blue-600/35 hover:to-blue-900/40 border border-blue-400/40 text-left transition-all duration-200 shadow-[0_8px_20px_rgba(59,130,246,0.15)] flex flex-col justify-between"
+            className="p-4 rounded-2xl bg-blue-600/20 hover:bg-blue-600/30 border border-blue-400/30 text-left transition-colors shadow-sm flex flex-col justify-between"
           >
             <div className="flex items-center justify-between w-full mb-2">
-              <div className="w-10 h-10 rounded-xl bg-blue-500/20 border border-blue-400/30 flex items-center justify-center text-blue-300 group-hover:scale-105 transition-transform">
+              <div className="w-10 h-10 rounded-xl bg-blue-500/20 border border-blue-400/30 flex items-center justify-center text-blue-300">
                 <Download className="w-5 h-5" />
               </div>
               <span className="text-[10px] uppercase tracking-wider font-bold text-blue-400 px-2 py-0.5 rounded-full bg-blue-500/10 border border-blue-400/20">
@@ -320,10 +320,10 @@ export const BackupRestoreSection: React.FC<BackupRestoreSectionProps> = ({
             <button
               type="button"
               onClick={() => fileInputRef.current?.click()}
-              className="w-full h-full relative group p-4 rounded-2xl bg-gradient-to-b from-slate-800/40 to-slate-900/60 hover:from-slate-800/60 hover:to-slate-900/80 border border-white/10 hover:border-white/20 text-left transition-all duration-200 shadow-md flex flex-col justify-between"
+              className="w-full h-full p-4 rounded-2xl bg-slate-800/40 hover:bg-slate-800/60 border border-white/10 hover:border-white/20 text-left transition-colors shadow-sm flex flex-col justify-between"
             >
               <div className="flex items-center justify-between w-full mb-2">
-                <div className="w-10 h-10 rounded-xl bg-white/10 border border-white/15 flex items-center justify-center text-slate-200 group-hover:scale-105 transition-transform">
+                <div className="w-10 h-10 rounded-xl bg-white/10 border border-white/15 flex items-center justify-center text-slate-200">
                   <Upload className="w-5 h-5" />
                 </div>
                 <span className="text-[10px] uppercase tracking-wider font-semibold text-slate-400 px-2 py-0.5 rounded-full bg-white/5 border border-white/10">
@@ -374,9 +374,9 @@ export const BackupRestoreSection: React.FC<BackupRestoreSectionProps> = ({
                   key={mode}
                   type="button"
                   onClick={() => onUpdateSettings({ backupReminder: mode })}
-                  className={`py-2 px-3 rounded-xl border text-center transition-all text-xs font-semibold ${
+                  className={`py-2 px-3 rounded-xl border text-center transition-colors text-xs font-semibold ${
                     isSelected
-                      ? 'bg-blue-600/20 border-blue-400/50 text-white shadow-[0_0_15px_rgba(59,130,246,0.2)]'
+                      ? 'bg-blue-600/20 border-blue-400/50 text-white shadow-sm'
                       : 'bg-white/[0.03] border-white/5 text-slate-300 hover:bg-white/[0.06] hover:text-white'
                   }`}
                 >

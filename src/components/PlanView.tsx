@@ -127,7 +127,7 @@ export const PlanView: React.FC<PlanViewProps> = ({
   };
 
   return (
-    <div className="space-y-5 pb-24 sm:pb-12">
+    <div className="space-y-5 pb-6 sm:pb-8">
       {/* 1. Header with Month Selection */}
       <div className="p-4 sm:p-5 rounded-2xl bg-slate-900/70 border border-white/10 shadow-sm flex flex-col sm:flex-row sm:items-center justify-between gap-3">
         <div>

@@ -197,7 +197,7 @@ export const ExpensesView: React.FC<ExpensesViewProps> = ({
   });
 
   return (
-    <div className="space-y-6 pb-24 sm:pb-12">
+    <div className="space-y-6 pb-6 sm:pb-8">
       {/* 1. TOP EXPENSE SUMMARY */}
       <div>
         <div className="flex items-center justify-between px-1 mb-3">

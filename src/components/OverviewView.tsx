@@ -77,7 +77,7 @@ export const OverviewView: React.FC<OverviewViewProps> = ({
   const topRecent = recentTransactions.slice(0, 6);
 
   return (
-    <div className="space-y-5 pb-24 sm:pb-12">
+    <div className="space-y-5 pb-6 sm:pb-8">
       {/* 1. Month Bar */}
       <div className="p-3.5 sm:p-4 rounded-2xl bg-slate-900/70 border border-white/10 flex items-center justify-between shadow-sm">
         <div>

@@ -517,13 +517,8 @@ export default function App() {
         )}
       </main>
 
-      {/* Watermark / Footer with Paras Panchal credit & LinkedIn hyperlink */}
-      <Footer className="hidden sm:block" />
-
-      {/* Extra spacing for mobile dock bar */}
-      <div className="h-16 sm:hidden">
-        <Footer />
-      </div>
+      {/* Subtle creator credit (visible above mobile navigation dock) */}
+      <Footer />
 
       {/* Transaction Logging Modal */}
       <LogModal

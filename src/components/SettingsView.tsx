@@ -1,19 +1,11 @@
 import React from 'react';
 import { 
-  Settings as SettingsIcon, 
   Coins, 
   Moon, 
   Sun, 
   Monitor,
   Calendar, 
   RotateCcw, 
-  Linkedin, 
-  User, 
-  ShieldCheck, 
-  Heart,
-  ExternalLink,
-  Sparkles,
-  Check
 } from 'lucide-react';
 import { GlassCard } from './GlassCard';
 import { BackupRestoreSection } from './BackupRestoreSection';
@@ -43,7 +35,7 @@ export const SettingsView: React.FC<SettingsViewProps> = ({
   onDataRestored = () => {},
 }) => {
   return (
-    <div className="space-y-6 pb-24 sm:pb-12">
+    <div className="space-y-6 pb-6 sm:pb-8">
       {/* Header */}
       <div className="px-1">
         <span className="text-xs font-semibold uppercase tracking-wider text-blue-400">
@@ -84,9 +76,9 @@ export const SettingsView: React.FC<SettingsViewProps> = ({
                       },
                     })
                   }
-                  className={`p-3 rounded-xl border text-left transition-all ${
+                  className={`p-3 rounded-xl border text-left transition-colors ${
                     isSelected
-                      ? 'bg-blue-600/20 border-blue-400/50 text-white shadow-[0_0_15px_rgba(59,130,246,0.25)]'
+                      ? 'bg-blue-600/20 border-blue-400/50 text-white shadow-sm'
                       : 'bg-white/[0.03] border-white/5 text-slate-300 hover:bg-white/[0.06] hover:text-white'
                   }`}
                 >
@@ -102,7 +94,7 @@ export const SettingsView: React.FC<SettingsViewProps> = ({
 
         {/* Budget Cycle & Appearance */}
         <div className="space-y-6">
-          {/* Appearance Section (Requirement 6) */}
+          {/* Appearance Section */}
           <GlassCard>
             <div className="flex items-center gap-2 mb-3">
               <Sun className="w-4 h-4 text-amber-400" />
@@ -132,7 +124,7 @@ export const SettingsView: React.FC<SettingsViewProps> = ({
                         themeMode: opt.id === 'light' ? 'light-glass' : 'dark-glass'
                       });
                     }}
-                    className={`p-3 rounded-xl border flex flex-col items-center justify-center gap-1.5 transition text-center cursor-pointer ${
+                    className={`p-3 rounded-xl border flex flex-col items-center justify-center gap-1.5 transition-colors text-center cursor-pointer ${
                       isSelected
                         ? 'bg-blue-600/25 border-blue-400/60 text-white shadow-sm'
                         : 'bg-white/[0.03] border-white/5 text-slate-400 hover:bg-white/[0.06] hover:text-white'
@@ -164,9 +156,9 @@ export const SettingsView: React.FC<SettingsViewProps> = ({
                     key={day}
                     type="button"
                     onClick={() => onUpdateSettings({ monthlyCycleDay: day })}
-                    className={`p-3 rounded-xl border text-center transition-all ${
+                    className={`p-3 rounded-xl border text-center transition-colors ${
                       isSelected
-                        ? 'bg-blue-600/20 border-blue-400/50 text-white shadow-[0_0_15px_rgba(59,130,246,0.25)]'
+                        ? 'bg-blue-600/20 border-blue-400/50 text-white shadow-sm'
                         : 'bg-white/[0.03] border-white/5 text-slate-300 hover:bg-white/[0.06]'
                     }`}
                   >
@@ -210,44 +202,6 @@ export const SettingsView: React.FC<SettingsViewProps> = ({
         onUpdateSettings={onUpdateSettings}
         onDataRestored={onDataRestored}
       />
-
-      {/* Creator & Branding Spotlight Card */}
-      <GlassCard variant="glow-blue" className="overflow-hidden">
-        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-          <div className="flex items-center gap-3.5">
-            <div className="w-12 h-12 rounded-2xl bg-gradient-to-tr from-blue-600 to-indigo-600 p-[1.5px] shadow-[0_0_20px_rgba(59,130,246,0.3)]">
-              <div className="w-full h-full bg-slate-950/90 rounded-[14px] flex items-center justify-center">
-                <User className="w-6 h-6 text-blue-400" />
-              </div>
-            </div>
-            <div>
-              <div className="flex items-center gap-2">
-                <h3 className="text-base font-bold text-white">
-                  My Budget Tracker
-                </h3>
-                <span className="text-[10px] font-semibold text-blue-300 bg-blue-500/20 px-2 py-0.5 rounded-full border border-blue-400/30">
-                  v1.0 Design Preview
-                </span>
-              </div>
-              <p className="text-xs text-slate-300 mt-0.5 flex items-center gap-1">
-                <span>Designed & built by</span>
-                <span className="font-semibold text-white">Paras Panchal</span>
-              </p>
-            </div>
-          </div>
-
-          <a
-            href="https://www.linkedin.com/in/paras-panchal"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-[#0a66c2]/20 hover:bg-[#0a66c2]/30 border border-[#0a66c2]/40 text-blue-200 text-xs font-semibold transition-all shadow-sm group"
-          >
-            <Linkedin className="w-4 h-4 fill-current text-blue-400" />
-            <span>Connect on LinkedIn</span>
-            <ExternalLink className="w-3.5 h-3.5 text-blue-400 group-hover:translate-x-0.5 transition-transform" />
-          </a>
-        </div>
-      </GlassCard>
     </div>
   );
 };

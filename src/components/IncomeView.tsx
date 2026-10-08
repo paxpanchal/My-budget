@@ -195,7 +195,7 @@ export const IncomeView: React.FC<IncomeViewProps> = ({
   });
 
   return (
-    <div className="space-y-6 pb-24 sm:pb-12">
+    <div className="space-y-6 pb-6 sm:pb-8">
       {/* 1. TOP INCOME SUMMARY */}
       <div>
         <div className="flex items-center justify-between px-1 mb-3">

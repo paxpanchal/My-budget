@@ -98,7 +98,7 @@ export const CalculatorView: React.FC<CalculatorViewProps> = ({
   const currentDisplayNumber = activeResult !== null ? activeResult : (parseFloat(expression) || 0);
 
   return (
-    <div className="space-y-6 pb-24 sm:pb-12 max-w-2xl mx-auto">
+    <div className="space-y-6 pb-6 sm:pb-8 max-w-2xl mx-auto">
       {/* Header */}
       <div className="px-1 text-center sm:text-left">
         <span className="text-xs font-semibold uppercase tracking-wider text-indigo-400">
