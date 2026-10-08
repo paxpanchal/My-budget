@@ -113,9 +113,7 @@ export default function App() {
         if (savedPlan && savedPlan.length > 0) {
           setMonthlyPlanItems(savedPlan);
         } else {
-          // Inherit the default plan template for new months and save to IndexedDB
-          await dbSaveMonthlyPlan(currentMonthKey, INITIAL_MONTHLY_PLAN);
-          setMonthlyPlanItems(INITIAL_MONTHLY_PLAN);
+          setMonthlyPlanItems([]);
         }
       } catch {
         // Safe fallback
@@ -126,18 +124,28 @@ export default function App() {
   }, [currentMonthKey, isDbLoaded]);
 
   /* =========================================================================
-     THEME / APPEARANCE EFFECT (Requirement 6: System / Light / Dark)
+     THEME / APPEARANCE EFFECT (Requirement 3: System / Light / Dark)
      ========================================================================= */
   useEffect(() => {
     const appearance = settings.appearance || 'system';
 
     const applyTheme = (isDark: boolean) => {
+      const root = document.documentElement;
+      const body = document.body;
+      const themeColorMeta = document.querySelector('meta[name="theme-color"]');
+
       if (isDark) {
-        document.body.classList.remove('light');
-        document.body.classList.add('dark');
+        root.classList.remove('light');
+        root.classList.add('dark');
+        body.classList.remove('light');
+        body.classList.add('dark');
+        if (themeColorMeta) themeColorMeta.setAttribute('content', '#090d16');
       } else {
-        document.body.classList.remove('dark');
-        document.body.classList.add('light');
+        root.classList.remove('dark');
+        root.classList.add('light');
+        body.classList.remove('dark');
+        body.classList.add('light');
+        if (themeColorMeta) themeColorMeta.setAttribute('content', '#f8fafc');
       }
     };
 
@@ -406,10 +414,10 @@ export default function App() {
   };
 
   return (
-    <div className="relative min-h-screen text-slate-100 bg-[#090d16] flex flex-col font-sans selection:bg-blue-500/30 selection:text-white">
-      {/* Lightweight subtle background gradient (No GPU-choking blur orbs) */}
+    <div className="relative min-h-screen text-slate-900 dark:text-slate-100 bg-[#f8fafc] dark:bg-[#090d16] flex flex-col font-sans transition-colors duration-200 selection:bg-blue-500/30 selection:text-white">
+      {/* Dynamic background gradient adapting to active theme */}
       <div 
-        className="fixed inset-0 pointer-events-none -z-10 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-blue-950/20 via-[#090d16] to-[#090d16]" 
+        className="fixed inset-0 pointer-events-none -z-10 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-blue-100/60 via-[#f8fafc] to-[#f8fafc] dark:from-blue-950/20 dark:via-[#090d16] dark:to-[#090d16] transition-colors duration-200" 
         aria-hidden="true" 
       />
 

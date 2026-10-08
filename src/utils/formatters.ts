@@ -1,10 +1,11 @@
 import { AppSettings } from '../types';
 
 export const formatCurrency = (amount: number, settings?: AppSettings): string => {
-  const symbol = settings?.currency?.symbol || '$';
+  const symbol = settings?.currency?.symbol || '₹';
   const placement = settings?.currency?.placement || 'before';
   
-  const formattedNumber = new Intl.NumberFormat('en-US', {
+  const locale = settings?.currency?.code === 'INR' ? 'en-IN' : 'en-US';
+  const formattedNumber = new Intl.NumberFormat(locale, {
     minimumFractionDigits: 2,
     maximumFractionDigits: 2,
   }).format(amount);

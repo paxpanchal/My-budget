@@ -13,7 +13,7 @@ export const Footer: React.FC<FooterProps> = ({ className = '' }) => {
           href="https://www.linkedin.com/in/paras-panchal12"
           target="_blank"
           rel="noopener noreferrer"
-          className="text-slate-400 hover:text-slate-300 underline underline-offset-2 transition-colors"
+          className="text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-300 underline underline-offset-2 transition-colors"
         >
           Paras Panchal
         </a>

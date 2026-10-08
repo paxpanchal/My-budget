@@ -328,24 +328,17 @@ export const initAndSeedDatabase = async (): Promise<{
       await dbSaveSettings(settings);
     }
 
-    // 2. Get or seed Transactions
+    // 2. Get Transactions (preserves existing user data, empty [] for new users)
     let transactions = await dbGetAllTransactions();
-    if (!transactions || transactions.length === 0) {
-      transactions = INITIAL_TRANSACTIONS.map((t, idx) => ({
-        ...t,
-        createdAt: Date.now() - (idx * 3600000),
-      }));
-      for (const t of transactions) {
-        await dbSaveTransaction(t);
-      }
+    if (!transactions) {
+      transactions = [];
     }
 
-    // 3. Get or seed Monthly Plan for October 2026 (or active month)
+    // 3. Get Monthly Plan for active month (preserves existing user data, empty [] for new users)
     const defaultMonthKey = '2026-10';
     let monthlyPlan = await dbGetMonthlyPlan(defaultMonthKey);
-    if (!monthlyPlan || monthlyPlan.length === 0) {
-      monthlyPlan = INITIAL_MONTHLY_PLAN;
-      await dbSaveMonthlyPlan(defaultMonthKey, monthlyPlan);
+    if (!monthlyPlan) {
+      monthlyPlan = [];
     }
 
     // 4. Get custom categories

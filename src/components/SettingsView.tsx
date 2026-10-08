@@ -19,10 +19,10 @@ interface SettingsViewProps {
 }
 
 const CURRENCIES = [
+  { code: 'INR', symbol: '₹', name: 'Indian Rupee (₹)', placement: 'before' as const },
   { code: 'USD', symbol: '$', name: 'US Dollar ($)', placement: 'before' as const },
   { code: 'EUR', symbol: '€', name: 'Euro (€)', placement: 'before' as const },
   { code: 'GBP', symbol: '£', name: 'British Pound (£)', placement: 'before' as const },
-  { code: 'INR', symbol: '₹', name: 'Indian Rupee (₹)', placement: 'before' as const },
   { code: 'CAD', symbol: 'CA$', name: 'Canadian Dollar (CA$)', placement: 'before' as const },
   { code: 'AUD', symbol: 'A$', name: 'Australian Dollar (A$)', placement: 'before' as const },
   { code: 'JPY', symbol: '¥', name: 'Japanese Yen (¥)', placement: 'before' as const },
@@ -76,14 +76,14 @@ export const SettingsView: React.FC<SettingsViewProps> = ({
                       },
                     })
                   }
-                  className={`p-3 rounded-xl border text-left transition-colors ${
+                  className={`p-3 rounded-xl border text-left transition-colors cursor-pointer ${
                     isSelected
-                      ? 'bg-blue-600/20 border-blue-400/50 text-white shadow-sm'
-                      : 'bg-white/[0.03] border-white/5 text-slate-300 hover:bg-white/[0.06] hover:text-white'
+                      ? 'bg-blue-500/20 border-blue-500 text-blue-600 dark:text-white shadow-sm ring-1 ring-blue-500/30'
+                      : 'bg-black/[0.02] dark:bg-white/[0.03] border-slate-200 dark:border-white/5 text-slate-700 dark:text-slate-300 hover:bg-black/[0.05] dark:hover:bg-white/[0.06] hover:text-slate-900 dark:hover:text-white'
                   }`}
                 >
                   <span className="text-xs font-bold block">{curr.name}</span>
-                  <span className="text-[10px] text-slate-400 font-mono mt-0.5 block">
+                  <span className="text-[10px] text-slate-500 dark:text-slate-400 font-mono mt-0.5 block">
                     {curr.code}
                   </span>
                 </button>
@@ -97,10 +97,10 @@ export const SettingsView: React.FC<SettingsViewProps> = ({
           {/* Appearance Section */}
           <GlassCard>
             <div className="flex items-center gap-2 mb-3">
-              <Sun className="w-4 h-4 text-amber-400" />
-              <h3 className="text-base font-bold text-white">Appearance</h3>
+              <Sun className="w-4 h-4 text-amber-500 dark:text-amber-400" />
+              <h3 className="text-base font-bold text-slate-900 dark:text-white">Appearance</h3>
             </div>
-            <p className="text-xs text-slate-400 mb-3.5">
+            <p className="text-xs text-slate-500 dark:text-slate-400 mb-3.5">
               Choose your interface theme or automatically follow your device settings.
             </p>
 
@@ -124,15 +124,15 @@ export const SettingsView: React.FC<SettingsViewProps> = ({
                         themeMode: opt.id === 'light' ? 'light-glass' : 'dark-glass'
                       });
                     }}
-                    className={`p-3 rounded-xl border flex flex-col items-center justify-center gap-1.5 transition-colors text-center cursor-pointer ${
+                    className={`p-3 rounded-xl border flex flex-col items-center justify-center gap-1.5 transition-all text-center cursor-pointer ${
                       isSelected
-                        ? 'bg-blue-600/25 border-blue-400/60 text-white shadow-sm'
-                        : 'bg-white/[0.03] border-white/5 text-slate-400 hover:bg-white/[0.06] hover:text-white'
+                        ? 'bg-blue-500/20 border-blue-500 text-blue-600 dark:text-blue-400 font-bold shadow-sm ring-2 ring-blue-500/30'
+                        : 'bg-black/[0.02] dark:bg-white/[0.03] border-slate-200 dark:border-white/5 text-slate-500 dark:text-slate-400 hover:bg-black/[0.05] dark:hover:bg-white/[0.06] hover:text-slate-900 dark:hover:text-white'
                     }`}
                   >
-                    <Icon className={`w-4 h-4 ${isSelected ? 'text-blue-400' : 'text-slate-400'}`} />
+                    <Icon className={`w-4 h-4 ${isSelected ? 'text-blue-600 dark:text-blue-400' : 'text-slate-400'}`} />
                     <span className="text-xs font-bold block">{opt.label}</span>
-                    <span className="text-[10px] text-slate-400 block -mt-0.5">{opt.desc}</span>
+                    <span className="text-[10px] text-slate-500 dark:text-slate-400 block -mt-0.5">{opt.desc}</span>
                   </button>
                 );
               })}
@@ -172,22 +172,22 @@ export const SettingsView: React.FC<SettingsViewProps> = ({
             </div>
           </GlassCard>
 
-          {/* Reset Demo Data */}
+          {/* Reset All Financial Data */}
           <GlassCard>
             <div className="flex items-center justify-between">
               <div>
-                <h3 className="text-sm font-bold text-white flex items-center gap-2">
-                  <RotateCcw className="w-4 h-4 text-amber-400" />
-                  <span>Reset Demo Financial Data</span>
+                <h3 className="text-sm font-bold text-slate-900 dark:text-white flex items-center gap-2">
+                  <RotateCcw className="w-4 h-4 text-amber-500 dark:text-amber-400" />
+                  <span>Clear All Financial Data</span>
                 </h3>
-                <p className="text-xs text-slate-400 mt-0.5">
-                  Restore default balances and categories for preview
+                <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
+                  Reset all recorded balances, expenses, and plans to zero
                 </p>
               </div>
               <button
                 type="button"
                 onClick={onResetData}
-                className="px-3.5 py-1.5 rounded-xl bg-amber-500/10 hover:bg-amber-500/20 border border-amber-500/30 text-amber-300 text-xs font-semibold transition"
+                className="px-3.5 py-1.5 rounded-xl bg-amber-500/10 hover:bg-amber-500/20 border border-amber-500/30 text-amber-600 dark:text-amber-300 text-xs font-semibold transition cursor-pointer"
               >
                 Reset
               </button>

@@ -19,17 +19,17 @@ export const GlassCard: React.FC<GlassCardProps> = ({
   const getVariantStyles = () => {
     switch (variant) {
       case 'subtle':
-        return 'bg-slate-900/40 border-white/5 dark:bg-slate-900/40 dark:border-white/5';
+        return 'bg-white/50 border-slate-200/60 dark:bg-slate-900/40 dark:border-white/5';
       case 'glow-blue':
-        return 'bg-blue-950/20 border-blue-500/20 dark:bg-blue-950/30 dark:border-blue-500/30';
+        return 'bg-blue-50/80 border-blue-200 dark:bg-blue-950/20 dark:border-blue-500/20';
       case 'glow-emerald':
-        return 'bg-emerald-950/20 border-emerald-500/20 dark:bg-emerald-950/30 dark:border-emerald-500/30';
+        return 'bg-emerald-50/80 border-emerald-200 dark:bg-emerald-950/20 dark:border-emerald-500/20';
       case 'glow-rose':
-        return 'bg-rose-950/20 border-rose-500/20 dark:bg-rose-950/30 dark:border-rose-500/30';
+        return 'bg-rose-50/80 border-rose-200 dark:bg-rose-950/20 dark:border-rose-500/20';
       case 'glow-indigo':
-        return 'bg-indigo-950/20 border-indigo-500/20 dark:bg-indigo-950/30 dark:border-indigo-500/30';
+        return 'bg-indigo-50/80 border-indigo-200 dark:bg-indigo-950/20 dark:border-indigo-500/20';
       default:
-        return 'bg-slate-900/60 border-white/10 dark:bg-slate-900/70 dark:border-white/10';
+        return 'bg-white/80 border-slate-200/90 shadow-sm dark:bg-slate-900/60 dark:border-white/10 dark:shadow-none';
     }
   };
 
@@ -47,7 +47,7 @@ export const GlassCard: React.FC<GlassCardProps> = ({
     >
       {/* Apple-style subtle specular rim */}
       <div 
-        className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/15 to-transparent" 
+        className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-slate-400/20 dark:via-white/15 to-transparent" 
         aria-hidden="true" 
       />
       {children}
