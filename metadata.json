@@ -1,0 +1,6 @@
+{
+  "name": "My Budget Tracker",
+  "description": "A modern, elegant, mobile-first personal finance and budget tracker with premium Apple-inspired glassmorphism UI.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
