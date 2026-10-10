@@ -227,6 +227,24 @@ export const dbGetAllMonthlyPlans = async (): Promise<{ monthKey: string; items:
     return plans;
   }
 };
+export const dbGetMostRecentPlanBeforeMonth = async (targetMonthKey: string): Promise<PlanItem[] | null> => {
+  try {
+    const allPlans = await dbGetAllMonthlyPlans();
+    if (!allPlans || allPlans.length === 0) return null;
+
+    // Filter plans strictly before targetMonthKey in chronological YYYY-MM order
+    const priorPlans = allPlans
+      .filter((p) => p.monthKey < targetMonthKey && Array.isArray(p.items) && p.items.length > 0)
+      .sort((a, b) => b.monthKey.localeCompare(a.monthKey)); // descending: closest prior month first
+
+    if (priorPlans.length > 0) {
+      return priorPlans[0].items;
+    }
+    return null;
+  } catch {
+    return null;
+  }
+};
 
 /* =========================================================================
    CUSTOM CATEGORIES REPOSITORY

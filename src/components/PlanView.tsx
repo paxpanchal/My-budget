@@ -15,7 +15,8 @@ import {
   X,
   Sparkles,
   Layers,
-  Tag
+  Tag,
+  Repeat
 } from 'lucide-react';
 import { AppSettings, PlanItem, PlanItemType, Transaction } from '../types';
 import { formatCurrency, formatPercentage } from '../utils/formatters';
@@ -59,6 +60,7 @@ export const PlanView: React.FC<PlanViewProps> = ({
   const [selectedAddType, setSelectedAddType] = useState<PlanItemType | null>(null);
   const [newItemName, setNewItemName] = useState('');
   const [newItemAmount, setNewItemAmount] = useState('');
+  const [newRepeatMonthly, setNewRepeatMonthly] = useState(true);
 
   // Group items by type
   const incomeItems = monthlyPlanItems.filter((i) => i.type === 'income');
@@ -97,14 +99,17 @@ export const PlanView: React.FC<PlanViewProps> = ({
     const amount = parseFloat(newItemAmount);
     if (isNaN(amount) || amount <= 0) return;
 
+    const newItemId = `plan-${Date.now()}`;
     const newItem: PlanItem = {
-      id: `plan-${Date.now()}`,
+      id: newItemId,
       name: newItemName.trim(),
       type: selectedAddType,
       plannedAmount: amount,
       iconName: selectedAddType === 'income' ? 'TrendingUp' : selectedAddType === 'savings' ? 'PiggyBank' : 'Tag',
       color: selectedAddType === 'income' ? '#10b981' : selectedAddType === 'savings' ? '#3b82f6' : '#f59e0b',
       isCustom: true,
+      repeatMonthly: newRepeatMonthly,
+      recurringTemplateId: newRepeatMonthly ? newItemId : undefined,
     };
 
     onUpdatePlanItem(newItem);
@@ -116,6 +121,7 @@ export const PlanView: React.FC<PlanViewProps> = ({
     setSelectedAddType(null);
     setNewItemName('');
     setNewItemAmount('');
+    setNewRepeatMonthly(true);
   };
 
   // Save Edit Item
@@ -165,6 +171,7 @@ export const PlanView: React.FC<PlanViewProps> = ({
               setSelectedAddType(null);
               setNewItemName('');
               setNewItemAmount('');
+              setNewRepeatMonthly(true);
               setIsAddModalOpen(true);
             }}
             className="flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-bold text-xs shadow-md transition active:scale-95 cursor-pointer"
@@ -559,6 +566,28 @@ export const PlanView: React.FC<PlanViewProps> = ({
                   />
                 </div>
 
+                {/* Optional "Repeat monthly" setting */}
+                <div className="flex items-center justify-between p-2.5 rounded-xl bg-white/[0.03] border border-white/5">
+                  <div className="flex items-center gap-2">
+                    <Repeat className="w-3.5 h-3.5 text-blue-400" />
+                    <div>
+                      <span className="text-xs font-semibold text-white block">Repeat monthly</span>
+                      <span className="text-[10px] text-slate-400 block -mt-0.5">
+                        Carry forward to upcoming months
+                      </span>
+                    </div>
+                  </div>
+                  <label className="relative inline-flex items-center cursor-pointer">
+                    <input
+                      type="checkbox"
+                      checked={newRepeatMonthly}
+                      onChange={(e) => setNewRepeatMonthly(e.target.checked)}
+                      className="sr-only peer"
+                    />
+                    <div className="w-8 h-4.5 bg-slate-700 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-slate-300 after:border after:rounded-full after:h-3.5 after:w-3.5 after:transition-all peer-checked:bg-blue-600" />
+                  </label>
+                </div>
+
                 <div className="pt-2 flex gap-2">
                   <button
                     type="button"
@@ -624,6 +653,32 @@ export const PlanView: React.FC<PlanViewProps> = ({
                 />
               </div>
 
+              {/* Optional "Repeat monthly" setting */}
+              <div className="flex items-center justify-between p-2.5 rounded-xl bg-white/[0.03] border border-white/5">
+                <div className="flex items-center gap-2">
+                  <Repeat className="w-3.5 h-3.5 text-blue-400" />
+                  <div>
+                    <span className="text-xs font-semibold text-white block">Repeat monthly</span>
+                    <span className="text-[10px] text-slate-400 block -mt-0.5">
+                      Carry forward to upcoming months
+                    </span>
+                  </div>
+                </div>
+                <label className="relative inline-flex items-center cursor-pointer">
+                  <input
+                    type="checkbox"
+                    checked={itemToEdit.repeatMonthly !== false}
+                    onChange={(e) => setItemToEdit({ ...itemToEdit, repeatMonthly: e.target.checked })}
+                    className="sr-only peer"
+                  />
+                  <div className="w-8 h-4.5 bg-slate-700 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-slate-300 after:border after:rounded-full after:h-3.5 after:w-3.5 after:transition-all peer-checked:bg-blue-600" />
+                </label>
+              </div>
+
+              <p className="text-[10px] text-slate-400 italic">
+                Changes affect only {currentMonth}. Past and future months remain untouched.
+              </p>
+
               <div className="pt-2 flex gap-2">
                 <button
                   type="button"
@@ -656,6 +711,9 @@ export const PlanView: React.FC<PlanViewProps> = ({
               <p className="text-xs text-slate-400 mt-1 truncate">
                 "{itemToDelete.name}" ({formatCurrency(itemToDelete.plannedAmount, settings)})
               </p>
+              <p className="text-[10px] text-slate-400 mt-1">
+                Removes it from <span className="text-slate-200 font-semibold">{currentMonth}</span> only. Previous months remain intact.
+              </p>
             </div>
             <div className="grid grid-cols-2 gap-2 pt-2">
               <button
@@ -673,7 +731,7 @@ export const PlanView: React.FC<PlanViewProps> = ({
                 }}
                 className="py-2 px-3 rounded-xl bg-rose-600 hover:bg-rose-500 text-white text-xs font-bold transition shadow"
               >
-                Delete
+                Delete for {currentMonth}
               </button>
             </div>
           </div>

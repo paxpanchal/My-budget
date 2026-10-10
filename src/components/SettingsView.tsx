@@ -141,10 +141,10 @@ export const SettingsView: React.FC<SettingsViewProps> = ({
 
           <GlassCard>
             <div className="flex items-center gap-2 mb-4">
-              <Calendar className="w-4 h-4 text-blue-400" />
-              <h3 className="text-base font-bold text-white">Monthly Cycle Start</h3>
+              <Calendar className="w-4 h-4 text-blue-500 dark:text-blue-400" />
+              <h3 className="text-base font-bold text-slate-900 dark:text-white">Monthly Cycle Start</h3>
             </div>
-            <p className="text-xs text-slate-400 mb-4">
+            <p className="text-xs text-slate-500 dark:text-slate-400 mb-4">
               The day of the month your salary or fresh budget cycle resets.
             </p>
 
@@ -156,14 +156,14 @@ export const SettingsView: React.FC<SettingsViewProps> = ({
                     key={day}
                     type="button"
                     onClick={() => onUpdateSettings({ monthlyCycleDay: day })}
-                    className={`p-3 rounded-xl border text-center transition-colors ${
+                    className={`p-3 rounded-xl border text-center transition-colors cursor-pointer ${
                       isSelected
-                        ? 'bg-blue-600/20 border-blue-400/50 text-white shadow-sm'
-                        : 'bg-white/[0.03] border-white/5 text-slate-300 hover:bg-white/[0.06]'
+                        ? 'bg-blue-500/20 border-blue-500 text-blue-600 dark:text-white shadow-sm ring-1 ring-blue-500/30 font-bold'
+                        : 'bg-black/[0.02] dark:bg-white/[0.03] border-slate-200 dark:border-white/5 text-slate-600 dark:text-slate-300 hover:bg-black/[0.05] dark:hover:bg-white/[0.06]'
                     }`}
                   >
                     <span className="text-sm font-bold block">{day}st</span>
-                    <span className="text-[9px] text-slate-400 uppercase mt-0.5 block">
+                    <span className="text-[9px] text-slate-500 dark:text-slate-400 uppercase mt-0.5 block">
                       Day
                     </span>
                   </button>

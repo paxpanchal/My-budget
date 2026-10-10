@@ -32,6 +32,7 @@ import {
   dbDeleteTransaction, 
   dbGetMonthlyPlan, 
   dbSaveMonthlyPlan, 
+  dbGetMostRecentPlanBeforeMonth,
   dbGetSettings,
   dbSaveSettings, 
   resetAllLocalData 
@@ -103,6 +104,7 @@ export default function App() {
 
   /* =========================================================================
      LOAD OR INITIALIZE MONTHLY PLAN WHEN MONTH CHANGES
+     Requirement: Carry forward planned Income, Expenses, and Savings into each new month
      ========================================================================= */
   useEffect(() => {
     if (!isDbLoaded) return;
@@ -110,13 +112,40 @@ export default function App() {
     const loadPlanForMonth = async () => {
       try {
         const savedPlan = await dbGetMonthlyPlan(currentMonthKey);
-        if (savedPlan && savedPlan.length > 0) {
+        if (savedPlan !== null) {
+          // If a plan record exists for this month (even if user explicitly cleared it to empty []), preserve it!
           setMonthlyPlanItems(savedPlan);
-        } else {
-          setMonthlyPlanItems([]);
+          return;
         }
-      } catch {
-        // Safe fallback
+
+        // New / uninitialized month: Check for prior month's plan to carry forward
+        const priorPlan = await dbGetMostRecentPlanBeforeMonth(currentMonthKey);
+        if (priorPlan && priorPlan.length > 0) {
+          // Carry forward items:
+          // 1. Items with repeatMonthly === true (or items where repeatMonthly is undefined/defaulted)
+          // 2. Map new unique IDs so modifications to this month don't collide with prior months
+          const eligibleItems = priorPlan.filter((item) => item.repeatMonthly !== false);
+          
+          if (eligibleItems.length > 0) {
+            const carriedForwardItems: PlanItem[] = eligibleItems.map((item) => ({
+              ...item,
+              id: `plan-${Date.now()}-${Math.random().toString(36).slice(2, 7)}`,
+              recurringTemplateId: item.recurringTemplateId || item.id,
+              repeatMonthly: item.repeatMonthly !== undefined ? item.repeatMonthly : true,
+            }));
+
+            // Persist the newly initialized month plan and update state
+            await dbSaveMonthlyPlan(currentMonthKey, carriedForwardItems);
+            setMonthlyPlanItems(carriedForwardItems);
+            return;
+          }
+        }
+
+        // Fresh installation or no prior plan exists
+        setMonthlyPlanItems([]);
+      } catch (err) {
+        console.error('Error loading or carrying forward month plan:', err);
+        setMonthlyPlanItems([]);
       }
     };
 

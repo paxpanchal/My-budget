@@ -72,6 +72,8 @@ export interface PlanItem {
   iconName: string;
   color: string;
   isCustom?: boolean;
+  repeatMonthly?: boolean;
+  recurringTemplateId?: string;
 }
 
 export interface IncomePlan {
